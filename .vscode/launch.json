@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Music Scraping",
+      "type": "python",
+      "request": "launch",
+      "module": "vg_music_scraper",
+      "justMyCode": false,
+      "args": [
+        "--album",
+        "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-o.s.t-switch-gamerip-2023"
+      ]
+    }
+  ]
+}
