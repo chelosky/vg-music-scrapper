@@ -1,6 +1,5 @@
 # coding: utf-8
-import os
-
-DEBUG = os.getenv('DEBUG', False)
 BASE_URL = 'https://downloads.khinsider.com'
-FOLDER_DOWNLOADS = os.getenv('FOLDER_DOWNLOADS', 'albums')
+
+DEFAULT_FOLDER_DOWNLOADS: str = 'albums'
+DEFAULT_DOWNLOADER_POOL_PROCESSES: int = 5

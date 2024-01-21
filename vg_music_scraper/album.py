@@ -3,22 +3,26 @@ from __future__ import annotations
 from bs4 import BeautifulSoup
 from pathvalidate import sanitize_filename
 
-from vg_music_scraper.constant import BASE_URL
 from vg_music_scraper.song import Song
 from vg_music_scraper.utils import request
+from vg_music_scraper.constant import BASE_URL
 
 class Album:
     def __init__(self, 
                  id: str,
                  title: str, 
                  alternative_title: str = None,
-                 songs = []
+                 songs: list[Song] = []
                  ):
         self.id = id
         self.title = title
         self.alternative_title = alternative_title
         self.songs = songs
  
+    @property
+    def folder_name(self) -> str:
+        return sanitize_filename(self.title)
+
     @classmethod
     def from_url(cls, album_url: str) -> Album:
         response = request('get', album_url)
