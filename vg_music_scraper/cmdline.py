@@ -1,24 +1,44 @@
 import argparse
 
-def parse_args() -> list[str]:
+def parse_args() -> (list[str], bool, bool):
     parser = argparse.ArgumentParser("Welcome to VG Music Scraper")
     parser.add_argument(
         "-a",
         "--album",
-        help="Pass in a album url inline",
-        nargs="+",
+        dest='albums',
         action="append",
+        nargs="+",
+        default=[],
+        help="Pass in a album url inline",
+    )
+    parser.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        dest='force_fetch',
+        default=False,
+        help="Force fetch of album information and omit cache files",
+    )
+    parser.add_argument(
+        "-d",
+        "--download",
+        action="store_true",
+        dest='download_songs',
+        default=False,
+        help="Download the album songs into the downloads folder",
     )
 
-    args = parser.parse_args()
+    options = parser.parse_args()
 
-    albums = sum(args.album or [[]], [])
+    album_urls = sum(options.albums or [[]], [])
+    force_fetch: bool = options.force_fetch
+    download_songs: bool = options.download_songs
 
-    if len(albums) == 0:
+    if len(album_urls) == 0:
         while True:
-            name = input("Enter albums url (leave blank to stop): ").strip()
+            name = input("Enter album url (leave blank to stop): ").strip()
             if name == "":
                 break
-            albums.append(name)
+            album_urls.append(name)
 
-    return albums
+    return album_urls, force_fetch, download_songs

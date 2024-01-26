@@ -46,3 +46,12 @@ class Song:
         audio_player = html.find('audio', { 'id': 'audio' })
         source_url = audio_player.get('src')
         self.download_url = source_url
+
+    def to_dict(self) -> dict[str, any]:
+        return {
+            'name': self.name,
+            'url': self.url,
+            'cd': self.cd,
+            'correlative': self.correlative,
+            'download_url': self.download_url,
+        }

@@ -18,10 +18,19 @@ class Album:
         self.title = title
         self.alternative_title = alternative_title
         self.songs = songs
- 
+
     @property
     def folder_name(self) -> str:
         return sanitize_filename(self.title)
+
+    @classmethod
+    def from_dictionary(cls, dict: dict[str, any]) -> Album:
+        return cls(
+            id=dict['id'],
+            title=dict['title'],
+            alternative_title = dict['alternative_title'],
+            songs = [ Song.from_dictionary(data) for data in dict['songs'] ]
+        )
 
     @classmethod
     def from_url(cls, album_url: str) -> Album:
@@ -85,3 +94,11 @@ class Album:
             alternative_title = alternative_title,
             songs = songs_list
         )
+
+    def to_dict(self) -> dict[str, any]:
+        return {
+            'id': self.id,
+            'title': self.title,
+            'alternative_title': self.alternative_title,
+            'songs': [ song.to_dict() for song in self.songs ]
+        }
